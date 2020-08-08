@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.Scanner;
 
+
 /**
  * Main Class:  Runs the Logic of the Hi Lo Game
  * @author Brian Chalfant 2020
@@ -56,8 +57,8 @@ public class Main {
             int selection = promptUser("Enter a Menu Option: ");
             switch (selection) {
                 case (1):
-                    hlg.setMinRange(promptUser("Enter Min Range"));
-                    hlg.setMaxRange(promptUser("Enter Max Range"));
+                    hlg.setMinRange(promptUser("Enter Min Range: "));
+                    hlg.setMaxRange(promptUser("Enter Max Range: "));
                     if (hlg.getMinRange() > hlg.getMaxRange()) {   // The range must be valid, if it is not, set it to default values and insult the user
                         hlg.setMinRange(0);
                         hlg.setMaxRange(100);
@@ -68,7 +69,7 @@ public class Main {
                     hlg.resetMagicNumber(); //Reset the MagicNumber so that it lies within the min and max
                     break;
                 case (2):
-                    hlg.setNumberOfGuesses(promptUser("Set Number of Guesses"));
+                    hlg.setNumberOfGuesses(promptUser("Set Number of Guesses: "));
                     if (hlg.getNumberOfGuesses() >= 100) { //stops the user from getting excessive guesses and insults the user
                         hlg.setNumberOfGuesses(99);
                         System.out.println(ANSI_RED + "NO! I'm not that patient. (Guesses set to 99)" + ANSI_RESET);
@@ -108,7 +109,7 @@ public class Main {
                     break;
                 } else if (guess < hlg.getMagicNumber()) {  //Guess is Lower than Magic Number
                     hlg.takeTurn();
-                    if (guess < hlg.getLowerBound()) {
+                    if (guess <= hlg.getLowerBound()) {
                         System.out.println("C'mon!  You know better than that!, The number is greater than " + hlg.getLowerBound());
                     } else {
                         System.out.println("That is too low");
@@ -116,7 +117,7 @@ public class Main {
                     }
                 } else if (guess > hlg.getMagicNumber()) { //Guess is Bigger than Magic Number
                     hlg.takeTurn();
-                    if (guess > hlg.getUpperBound()) {
+                    if (guess >= hlg.getUpperBound()) {
                         System.out.println("C'mon!  You know better than that!, The number is less than " + hlg.getUpperBound());
                     } else {
                         System.out.println("That is too high");
@@ -125,7 +126,9 @@ public class Main {
                 }
                 if (hlg.getTurns() == 0) { //Out of Turns
                     hlg.setCorrectGuess(true);
+                    System.out.println("The Correct Answer Was: " + hlg.getMagicNumber());
                     System.out.println(ANSI_GREEN + "YOU LOSE! PLAY AGAIN!" + ANSI_RESET);
+
                 } else {
                     System.out.println("you have " + ANSI_RED + hlg.getTurns() + ANSI_RESET + " guesses");
                 }
